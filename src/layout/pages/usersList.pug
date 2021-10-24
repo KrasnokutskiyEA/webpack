@@ -1,0 +1,23 @@
+//- этот шаблон принимает объект с ключами: base и users (см. main.js)
+
+//- наследуемся от основного шаблона pageTemplate.pug
+extends ../pageTemplate
+
+//- объявление миксина (функция возвращающая кусок разметки)
+
+//- контент, вставляемый внутрь шаблона-родителя
+block content
+  h3 Это Список Пользователей...
+  ul
+    li
+      a.user(href='userCard' + '.html')= 'Петров'
+    li
+      a.user(href='userCard' + '.html')= 'Иванов'
+    li
+      a.user(href='userCard' + '.html')= 'Сидоров'
+
+  h3 Это библтотека компонентов...
+  ul
+    li
+      a.user(href='lib' + '.html')= 'библиотека'
+

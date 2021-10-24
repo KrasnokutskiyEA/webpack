@@ -1,13 +1,20 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require('path')
+const glob = require('glob')
+
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const PurgeCSSPlugin = require('purgecss-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
 const stylesHandler = MiniCssExtractPlugin.loader
+
+const PATHS = {
+  src: path.join(__dirname, 'src')
+}
 
 const config = {
   entry: './src/index.js',
@@ -25,15 +32,25 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.html'
+      template: './src/layout/pages/usersList.pug',
+      title: 'My super title',
+      filename: 'index.html'
     }),
-
+    new HtmlWebpackPlugin({
+      template: './src/layout/pages/userCard.pug',
+      title: 'My super title',
+      filename: 'userCard.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/layout/pages/lib.pug',
+      title: 'My css lib',
+      filename: 'lib.html'
+    }),
     new MiniCssExtractPlugin(),
-
+    new PurgeCSSPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true })
+    }),
     new ESLintPlugin()
-
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
 
   module: {
@@ -53,10 +70,11 @@ const config = {
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset'
+      },
+      {
+        test: /\.pug$/,
+        use: [{ loader: 'pug-loader' }]
       }
-
-    // Add your rules for custom modules here
-    // Learn more about loaders from https://webpack.js.org/loaders/
     ]
   }
 }
