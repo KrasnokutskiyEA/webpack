@@ -1,17 +1,24 @@
 // variables & functions
+@import 'functions';
 @import 'variables';
 
 // reset styles & layout
 @import 'base';
+@import 'breakpoints';
+@import 'grid';
+
+// colors
+@import "colors";
 
 // fonts
 @import 'fonts';
 
 // components (button, card, navbar etc)
 @import 'components/card';
+@import 'components/button';
+@import 'components/navbar';
 
+// utilities (margin, padding, opacity, etc)
+@import 'utilities';
 
-body {
-  font-family: 'Roboto', sans-serif;
-}
 
